@@ -1,4 +1,4 @@
-val fibi = sequence {
+public val fibi: Sequence<Int> = sequence {
     var a = firstElement
     yield(a)
     var b = secondElement
@@ -11,5 +11,5 @@ val fibi = sequence {
     }
 }
 
-expect val firstElement: Int
-expect val secondElement: Int
+public expect val firstElement: Int
+public expect val secondElement: Int
