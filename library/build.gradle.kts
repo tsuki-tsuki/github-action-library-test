@@ -8,6 +8,8 @@ plugins {
 }
 
 kotlin {
+    explicitApi()
+
     jvm()
     androidTarget {
         publishLibraryVariants("release")
