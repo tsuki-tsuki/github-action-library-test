@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -18,10 +19,22 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_1_8)
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
     linuxX64()
+
+    val xcframeworkName = "FibonacciCore"
+    val xcf = XCFramework(xcframeworkName)
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = xcframeworkName
+            binaryOption("bundleId", "org.example.github.actions.test.fibonacci")
+            xcf.add(this)
+            isStatic = true
+        }
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -38,7 +51,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.example.github.actions.test.fibonacci"
+    namespace = "org.example.github.actions.test.fibonacci"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

@@ -3,7 +3,7 @@ plugins {
 }
 
 allprojects {
-    group = "com.example.github.actions.test.fibonacci"
+    group = "org.example.github.actions.test.fibonacci"
     version = "0.0.1"
 }
 
